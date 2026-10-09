@@ -1,8 +1,14 @@
 return {
-	"nvim-neo-tree/neo-tree.nvim",
-	branch = "v3.x",
-	dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim", "nvim-tree/nvim-web-devicons" },
+	"stevearc/oil.nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
-		vim.keymap.set("n", "<leader>n", ":Neotree filesystem reveal left<Cr>", {})
+		require("oil").setup()
+		vim.keymap.set("n", "<leader>n", function()
+			if vim.bo.filetype == "oil" then
+				vim.cmd("bd")
+			else
+				vim.cmd("Oil")
+			end
+		end, {})
 	end,
 }
